@@ -1,9 +1,10 @@
 import express from 'express';
 import dotenv from "dotenv";
-import cors from 'cors'
+import cors from 'cors';
 
 import db from "./config/db.js";
-import productsRoutes from "./routes/ProductsRoutes.js"
+import productsRoutes from "./routes/ProductsRoutes.js";
+import categoryRoutes from "./routes/CategoryRoutes.js";
 
 dotenv.config();
 
@@ -13,5 +14,6 @@ app.use(cors());
 db.connect();
 
 app.use('/', productsRoutes);
+app.use('/', categoryRoutes);
 
 export default app;
