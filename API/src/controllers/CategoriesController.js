@@ -49,6 +49,47 @@ class CategoriesController {
             res.status(400).json("Erro ao conectar no banco de dados");
         }
     }
+
+    async changeCategory(req, res) {
+        const id = req.params.id;
+        const { name } = req.body;
+
+        if (!name) return res.status(422).json("Nenhum campo para ser alterado");
+        if (name) if (typeof name !== "string") return res.status(422).json("O campo nome deve ser um texto");
+
+        try {
+            const changeCategory = await db.query(
+                `
+                    UPDATE categorias
+                    SET nome_categoria = $1
+                    WHERE id = $2
+                    RETURNING *
+                `, [name, id]);
+
+            if (changeCategory.rows.length === 0) return res.status(404).json("Categoria não encontrada");
+
+            res.status(200).json("Categoria alterada com sucesso");
+        } catch (error) {
+            console.log(error);
+            res.status(400).json("Erro ao conectar com banco de dados");
+        }
+        
+    }
+
+    async deleteCategory(req,res) {
+        const id = req.params.id;
+
+        try {
+            const deleteCategory = await db.query("DELETE FROM categorias WHERE id = $1 RETURNING *", [id]);
+
+            if (deleteCategory.rows.length === 0) return res.status(404).json("Categoria não encontrada");
+
+            res.status(200).json("Categoria deletada com sucesso");
+        } catch (error) {
+            console.log(error);
+            res.status(400).json("Erro ao conectar no banco de dados");
+        }
+    }
 }
 
 export default CategoriesController;

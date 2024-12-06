@@ -12,5 +12,8 @@ router.get('/category/:id', categoriesController.consultCategory);
 
 router.post('/category', categoriesController.createCategory);
 
+router.patch('/category/:id', categoriesController.changeCategory);
+
+router.delete('/category/:id', categoriesController.deleteCategory);
 
 export default router;
