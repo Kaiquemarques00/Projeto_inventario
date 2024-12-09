@@ -5,6 +5,7 @@ import cors from 'cors';
 import db from "./config/db.js";
 import productsRoutes from "./routes/ProductsRoutes.js";
 import categoriesRoutes from "./routes/CategoriesRoutes.js";
+import movimentacaoRoutes from "./routes/MovimentacaoRoutes.js";
 
 dotenv.config();
 
@@ -15,5 +16,6 @@ db.connect();
 
 app.use('/', productsRoutes);
 app.use('/', categoriesRoutes);
+app.use('/', movimentacaoRoutes);
 
 export default app;

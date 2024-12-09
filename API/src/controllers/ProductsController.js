@@ -62,7 +62,7 @@ class ProductsController {
 
             if (product.length === 0) return res.status(404).json("Produto não encontrado");
 
-            res.status(200).json({products: product, message: "Está funcionando a rota de consulta"});
+            res.status(200).json(product);
         } catch (error) {
             console.log(error);
             res.status(400).json("Erro ao conectar ao banco de dados");
