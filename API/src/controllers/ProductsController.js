@@ -2,16 +2,48 @@ import db from "../config/db.js";
 
 class ProductsController {
     async consultProducts(req, res) {
+        // Parametros de consulta HTTP especializados
+        const { nome, categoria, estoque_min, estoque_max, ordenar } = req.query;
+
         try {
-            const consultProducts = await db.query(`
+            let queryProduct = `
                     SELECT produtos.id, nome, descricao, quantidade, preco, nome_categoria AS categoria
                     FROM produtos
-                    INNER JOIN categorias ON produtos.categoria_id = categorias.id
-                    ORDER BY produtos.id ASC                               
-                `);
-            const products = consultProducts.rows;
+                    INNER JOIN categorias ON produtos.categoria_id = categorias.id                               
+                `;
 
-            if (products.length === 0) return req.status(404).json("Nenhum produto encontrado");
+            const valores = [];
+
+            // Se tiver algum parametro de consulta, armazenar o valor do parametro em um array e usa o indece do array para utilizar o dado.
+            if (categoria) {
+                valores.push(categoria.charAt(0).toUpperCase() + categoria.slice(1));
+                console.log(valores);
+                queryProduct += ` AND categorias.nome_categoria = $${valores.length}`;
+              }
+            
+            if (nome) {
+                // O operador % é utilizado para buscas parciais.
+                valores.push(`%${nome}%`);
+                queryProduct += ` AND produtos.nome ILIKE $${valores.length}`; // Busca parcial (case-insensitive)
+            }
+
+            // Se tiver algum parametro de consulta, utiliza o valor diretamente na consulta.
+            if (estoque_min) queryProduct += ` AND produtos.quantidade >= ${estoque_min}`;
+          
+            if (estoque_max) queryProduct += ` AND produtos.quantidade <= ${estoque_max}`;
+          
+            // Adiciona ordenação
+            if (ordenar) {
+                const [coluna, direcao] = ordenar.split(':');
+                if (['asc', 'desc'].includes(direcao.toLowerCase())) {
+                    queryProduct += ` ORDER BY ${coluna} ${direcao.toUpperCase()}`;
+                }
+            }
+
+            const consultProducts = await db.query(queryProduct, valores);
+            const products = consultProducts.rows;
+            
+            if (products.length === 0) return res.status(404).json("Nenhum produto encontrado");
 
 
             res.status(200).json(products);
