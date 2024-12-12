@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Home from './pages/home/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
 
   return (

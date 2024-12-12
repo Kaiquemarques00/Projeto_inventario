@@ -1,0 +1,27 @@
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+.menu {
+    min-width: 40px;
+    min-height: 40px;
+    cursor: pointer;
+}
+
+.menu:hover {
+    opacity: 70%;
+}
+
+.open {
+    display: block;
+}
+
+.direction {
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.nav-link:hover {
+    filter: brightness(70%);
+}
