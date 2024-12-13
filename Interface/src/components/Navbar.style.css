@@ -17,9 +17,11 @@
     display: block;
 }
 
-.direction {
-    flex-basis: 100%;
-    justify-content: center;
+@media screen and (max-width: 991.88px) {
+    .direction {
+        flex-basis: 100%;
+        justify-content: center;
+    }
 }
 
 .nav-link:hover {

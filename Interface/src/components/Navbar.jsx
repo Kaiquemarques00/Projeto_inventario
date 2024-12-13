@@ -19,10 +19,10 @@ const Navbar = () => {
         <>
             <header className='d-flex justify-content-between p-1 flex-wrap'>
                 <img src={logo} className='align-self-center logo ms-3' alt="Logo da empresa" />
-                <img src={menu} className='align-self-center me-5 menu' alt="Icone de um menu" onClick={toggleMenu}/>
-                <nav id='links' className='d-none align-items-center direction'>
-                    <ul className='d-flex align-items-center m-0 p-0 gap-2 flex-column'>
-                        <li className='nav-item'><a className='nav-link text-primary fs-5 mb-2' href="/home">Home</a></li>
+                <img src={menu} className='align-self-center me-5 menu d-lg-none' alt="Icone de um menu" onClick={toggleMenu}/>
+                <nav id='links' className='d-none d-lg-flex align-items-center direction pe-lg-5'>
+                    <ul className='d-flex align-items-center m-0 p-0 gap-2 flex-column flex-lg-row gap-lg-5'>
+                        <li className='nav-item'><a className='nav-link text-primary fs-5 mb-2' href="/">Home</a></li>
                         <li className='nav-item'><a className='nav-link text-primary fs-5 mb-2' href="/produtos">Produtos</a></li>
                         <li className='nav-item'><a className='nav-link text-primary fs-5 mb-2' href="/categorias">Categorias</a></li>
                         <li className='nav-item'><a className='nav-link text-primary fs-5 mb-2' href="/movimentacoes">Movimentações</a></li>

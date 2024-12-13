@@ -1,13 +1,15 @@
 import React from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import product from '../../assets/product.svg'
 import category from '../../assets/category.svg'
 import report from '../../assets/report.svg'
 
-
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+
+import './Home.style.css'
 
 
 const Home = () => {
@@ -17,7 +19,7 @@ const Home = () => {
             <section id='slogan' className='d-flex w-100 px-4'>
                 <h1 className='mt-5 pt-5 mb-5 w-100 text-center'>Controle Total, Simplicidade Máxima: Seu Inventário na Palma da Mão.</h1>
             </section>
-            <section id='features' className='d-flex flex-column m-0 row'>
+            <section id='features' className='d-flex flex-column m-0 px-5 row'>
                 <h1 className='text-center my-5 py-5 px-0 mb-4 col-12'>Features</h1>
                 <section id='cards' className='d-flex  align-items-lg-start  m-0 p-0 row'>
                     <article className='feature-stock d-flex flex-column align-items-center mb-4 col-12 col-md-4'>
@@ -67,23 +69,25 @@ const Home = () => {
                     </article>
                 </section>
             </section>
-            <section id='plans' className='d-flex flex-column align-items-center'>
-                <h1 className='mb-4'>Planos</h1>
-                <article className='basic-plan align-self-center text-center'>
-                    <h2 className='fs-2 pb-3'>Basic Plan</h2>
-                    <p className='px-4 fs-4'>R$ 49,99</p>
-                    <p className='px-4'>Controle de Estoque com cadastro de até 100 produtos.</p>
-                    <p className='px-4'>Relatórios de estoque simples</p>
-                    <p className='px-4'>Preço acessível.</p>
-                </article>
-                <article className='advanced-plan align-self-center text-center mb-5 pb-5'>
-                <h2 className='fs-2 pb-3'>Advanced Plan</h2>
-                    <p className='px-4 fs-4'>R$ 99,99</p>
-                    <p className='px-4'>Controle de Estoque sem limite de produtos.</p>
-                    <p className='px-4'>Alertas e monitoramento avançados do estoque.</p>
-                    <p className='px-4'>Relatórios detalhados e personalizados.</p>
-                    <p className='px-4'>Busca e filtragem avançada por categorias.</p>
-                </article>
+            <section id='plans' className='d-flex flex-column align-items-center m-0 mb-5 pb-5 row'>
+                <h1 className='mb-4 mb-lg-5 pb-lg-3 text-center px-0 col-12'>Planos</h1>
+                <section id='plan' className='d-flex align-items-lg-start m-0 p-0 row'>
+                    <article className='basic-plan text-center ps-lg-5 pe-lg-0 col-12 col-md-6'>
+                        <h2 className='fs-2 pb-3'>Basic Plan</h2>
+                        <p className='px-4 fs-4'>R$ 49,99</p>
+                        <p className='px-4'>Controle de Estoque com cadastro de até 100 produtos.</p>
+                        <p className='px-4'>Relatórios de estoque simples</p>
+                        <p className='px-4'>Preço acessível.</p>
+                    </article>
+                    <article className='advanced-plan text-center mb-5 ps-lg-0 pe-lg-5 col-12 col-md-6'>
+                        <h2 className='fs-2 pb-3'>Advanced Plan</h2>
+                        <p className='px-4 fs-4'>R$ 99,99</p>
+                        <p className='px-4'>Controle de Estoque sem limite de produtos.</p>
+                        <p className='px-4'>Alertas e monitoramento avançados do estoque.</p>
+                        <p className='px-4'>Relatórios detalhados e personalizados.</p>
+                        <p className='px-4'>Busca e filtragem avançada por categorias.</p>
+                    </article>
+                </section>
             </section>
             <Footer />
         </> 
