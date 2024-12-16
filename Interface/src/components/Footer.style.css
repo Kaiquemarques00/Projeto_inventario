@@ -1,0 +1,9 @@
+p.text-center { 
+    margin-left: 16%; 
+}
+
+@media screen and (min-width: 767.98px) {
+    p.text-center { 
+        margin-left: 9%; 
+    }
+}

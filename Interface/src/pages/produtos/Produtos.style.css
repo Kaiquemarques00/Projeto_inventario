@@ -1,0 +1,70 @@
+main {
+    width: 84%;
+    display: flex;
+    margin-left: 16%;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 100px);
+    gap: 20px;
+
+    & h1.title {
+        font-size: calc(2rem, 2vw, 2.5rem);
+        margin-top: 30px;
+    }
+
+    & section#features {
+        display: flex;
+        height: 80px;
+        min-width: 90%;
+        justify-content: space-between;
+        align-items: center;
+
+        & button {
+            border: none;
+            height: 40px;
+            padding: 0 10px;
+            border-radius: 10px;
+            background-color: forestgreen;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        & input {
+            height: 40px;
+            padding: 0 15px;
+            width: 65%;
+        }
+
+        & input:focus {
+            border: none;
+        }
+    }
+
+    
+}
+
+@media screen and (min-width: 767.98px) {
+    main {
+        width: 91%;
+        margin-left: 9%;
+
+        & section#features {  
+            max-width: 80%;
+            margin-bottom: 50px;
+    
+            & button {
+                height: 50px;
+                padding: 0 50px;
+                font-size: 1.3rem;
+            }
+    
+            & input {
+                height: 50px;
+                width: 40%;
+            }
+        }
+    }
+
+    
+}
