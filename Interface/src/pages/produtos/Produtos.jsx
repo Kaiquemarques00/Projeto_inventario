@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Appbar from '../../components/Appbar';
 import Sidebar from '../../components/Sidebar';
 import Footer from '../../components/Footer';
+import Modal from '../../components/Modal';
 
 import "./Produtos.style.css"
 
 const Produtos = () => {
     const sidebar = document.querySelector(".sidebar");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
     
     window.addEventListener('scroll', function() {
         const sidebar = document.querySelector(".sidebar");
@@ -17,33 +22,44 @@ const Produtos = () => {
             sidebar.classList.remove("scroll");
         }
       });
-    
-    console.log(sidebar)
 
-    return ( 
+    return (
         <>
             <Appbar />
             <Sidebar />
             <main>
                 <h1 className='title'>Produtos</h1>
                 <section id='features'>
-                    <button>Adicionar</button>
+                    <button onClick={openModal}>Adicionar</button>
                     <input type="search" name="" id="" />
+                    {isModalOpen && <Modal closeModal={closeModal} />}
                 </section>
                 <section id='table'>
                     <table>
                         <thead>
                             <tr>
-                                <th>Coluna tabela</th>
-                                <th>Coluna tabela</th>
+                                <th>ID</th>
+                                <th>Nome</th>
                                 <th>Coluna tabela</th>
                                 <th>Coluna tabela</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>1</td>
+                                <td>Sapato numero 1</td>
                                 <td>Linha tabela</td>
                                 <td>Linha tabela</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Sapato numero 2</td>
+                                <td>Linha tabela</td>
+                                <td>Linha tabela</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Sapato numero 3</td>
                                 <td>Linha tabela</td>
                                 <td>Linha tabela</td>
                             </tr>

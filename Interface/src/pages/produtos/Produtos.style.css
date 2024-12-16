@@ -41,7 +41,53 @@ main {
         }
     }
 
-    
+    & section#table {
+        display: flex;
+        width: 80%;
+
+        & table {
+            width: 100%;
+            & thead {
+                font-size: clamp(1.3rem, 2vw, 1.6rem);
+                & tr {
+                    text-align: center;
+
+                    & th {
+                        padding: 10px;
+                    }
+
+                    & th:nth-child(3), th:nth-child(4) {
+                        display: none;
+                    }
+                    
+                    & th:nth-child(1) {
+                        width: 30%;
+                    }
+                }
+            }
+
+            & tbody {
+                font-size: clamp(1.05rem, 2vw, 1.4rem);
+                & tr {
+                    text-align: left;
+
+                    & td {
+                        padding: 10px 10px;
+                        text-align: center;
+                    }
+
+                    & td:nth-child(3), td:nth-child(4) {
+                        display: none;
+                    }
+                }
+
+                & tr:hover {
+                    cursor: pointer;
+                    background-color: #ccc;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 767.98px) {
