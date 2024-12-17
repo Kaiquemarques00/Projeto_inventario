@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import Dropdown from "./Dropdown";
 
 import "./Modal.style.css";
 
-const Modal = ({ closeModal  }) => {
+const Modal = ({ closeModal, title, labels, inputs, change, submit, page  }) => {
 
+  const changesKeys = Object.keys(change);
+  
   return (
     <>
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h2>Modal</h2>
-          <p>Conteúdo do modal aqui!</p>
+      <section className="modal-overlay">
+        <article className="modal-content">
+          <h1>{title}</h1>
+          <form action="">
+            {labels.map((labelTitle, index) => (
+              <article key={index}>
+                <label htmlFor={inputs[index]}>{labelTitle}</label>
+                <input type="text" onChange={change[changesKeys[index]]}/>
+              </article>
+            ))}
+            <Dropdown change={change.changeCategory} page={page}/>
+          </form>
+          <button className="add-button" onClick={submit}>
+            Adicionar
+          </button>
           <button className="close-button" onClick={closeModal}>
             Fechar
           </button>
-        </div>
-      </div>
+        </article>
+      </section>
     </>
   );
 };

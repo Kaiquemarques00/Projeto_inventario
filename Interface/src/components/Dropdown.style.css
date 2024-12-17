@@ -1,0 +1,38 @@
+.dropdown-container {
+
+    & select{
+        height: 40px;
+        cursor: pointer;
+
+        & option {
+            padding: 12px 16px;
+            background-color: #fff;
+            font-size: 24px;
+            color: #333;
+            transition: background-color 0.2s ease;
+        }
+
+        & option:hover {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        /* Efeito ao selecionar uma opção */
+        & option:checked {
+            background-color: #80e27e;
+            color: #fff;
+        }
+
+        /* Estilização do placeholder */
+        & option:first-child {
+            color: #999;
+            font-style: italic;
+        }
+    }
+
+    & select:focus {
+        border-color: #45a049;
+        background-color: #eaf1e2;
+        box-shadow: 0 0 5px rgba(72, 161, 99, 0.7);
+    }
+}

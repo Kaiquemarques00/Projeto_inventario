@@ -5,14 +5,36 @@ import Sidebar from '../../components/Sidebar';
 import Footer from '../../components/Footer';
 import Modal from '../../components/Modal';
 
+import MetodsApi from '../../services/API'
+
 import "./Produtos.style.css"
 
 const Produtos = () => {
     const sidebar = document.querySelector(".sidebar");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [name, setNome] = useState("");
+    const [description, setDescription] = useState("");
+    const [amount, setAmount] = useState("");
+    const [price, setPrice] = useState("");
+    const [category, setCategory] = useState("");
+
+    const api = new MetodsApi();
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+    const changes = {
+        changeName: (e) => setNome(e.target.value),
+        changeDescription: (e) => setDescription(e.target.value),
+        changeAmount: (e) => setAmount(e.target.value),
+        changePrice: (e) => setPrice(e.target.value),
+        changeCategory: (e) => setCategory(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        api.createProduct([name, description, amount, price, category]);
+    }
     
     window.addEventListener('scroll', function() {
         const sidebar = document.querySelector(".sidebar");
@@ -32,8 +54,15 @@ const Produtos = () => {
                 <section id='features'>
                     <button onClick={openModal}>Adicionar</button>
                     <input type="search" name="" id="" />
-                    {isModalOpen && <Modal closeModal={closeModal} />}
                 </section>
+                {isModalOpen && <Modal closeModal={closeModal} 
+                    title="Formulário Produtos"
+                    labels={["Nome: ", "Descrição: ", "Quantidade: ", "Preço: "]}
+                    inputs={["name", "description", "amount", "price"]}
+                    change={changes}
+                    submit={handleSubmit}
+                    page="produtos"
+                />}
                 <section id='table'>
                     <table>
                         <thead>
