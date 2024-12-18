@@ -4,7 +4,7 @@ import Dropdown from "./Dropdown";
 
 import "./Modal.style.css";
 
-const Modal = ({ closeModal, title, labels, inputs, change, submit, page  }) => {
+const ModalCreate = ({ closeModal, title, labels, inputs, change, submit, page  }) => {
 
   const changesKeys = Object.keys(change);
   
@@ -22,16 +22,18 @@ const Modal = ({ closeModal, title, labels, inputs, change, submit, page  }) => 
             ))}
             <Dropdown change={change.changeCategory} page={page}/>
           </form>
-          <button className="add-button" onClick={submit}>
-            Adicionar
-          </button>
-          <button className="close-button" onClick={closeModal}>
-            Fechar
-          </button>
+          <article className="buttons-container">
+            <button className="add-button" onClick={submit}>
+              Adicionar
+            </button>
+            <button className="close-button" onClick={closeModal}>
+              Fechar
+            </button>
+          </article>
         </article>
       </section>
     </>
   );
 };
 
-export default Modal;
+export default ModalCreate;

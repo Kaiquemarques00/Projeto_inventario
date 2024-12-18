@@ -39,6 +39,40 @@ class MetodsApi {
           }
     }
 
+    async changeProduct(values, id) {
+
+      if (values.name === "") delete values.name;
+      if (values.description === "") delete values.description;
+      if (values.amount === "") delete values.amount;
+      if (values.price === "") delete values.price;
+      if (values.category_id === "") delete values.category_id;
+
+      console.log(values);
+      
+      try {
+          const response = await api.patch(
+            `/product/${parseInt(id)}`, values
+          );
+    
+          this.messageAPI = response.data;
+          alert(this.messageAPI);
+          setInterval(location.reload(), 2000);
+        } catch (error) {
+          // Lidar com erros de envio de dados
+          this.errorAPI = error.response.data;
+          alert(this.errorAPI);
+          console.log(error);
+        }
+  }
+
+    async getAllProducts() {
+      const response = await api.get(
+        "/products",
+    );
+
+    return response.data
+    }
+
     async getAllCategories() {
         const response = await api.get(
             "/categories",

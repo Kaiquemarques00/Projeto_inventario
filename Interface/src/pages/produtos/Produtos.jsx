@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Appbar from '../../components/Appbar';
 import Sidebar from '../../components/Sidebar';
 import Footer from '../../components/Footer';
-import Modal from '../../components/Modal';
+import ModalCreate from '../../components/ModalCreate';
+import ModalInfos from '../../components/ModalInfos';
 
 import MetodsApi from '../../services/API'
 
@@ -11,17 +12,30 @@ import "./Produtos.style.css"
 
 const Produtos = () => {
     const sidebar = document.querySelector(".sidebar");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+    const [isModalInfosOpen, setIsModalInfosOpen] = useState(false);
     const [name, setNome] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
+    const [productSelected, setProductSelected] = useState("");
+    const [products, setProducts] = useState("");
+  
+    const openModalInfos = (product) => {
+        setProductSelected(product);
+        setIsModalInfosOpen(true);
+    };
+
+    const closeModalInfos = () => {
+        setProductSelected(null);
+        setIsModalInfosOpen(false);
+    };
 
     const api = new MetodsApi();
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const openModalCreate = () => setIsModalCreateOpen(true);
+    const closeModalCreate = () => setIsModalCreateOpen(false);
     const changes = {
         changeName: (e) => setNome(e.target.value),
         changeDescription: (e) => setDescription(e.target.value),
@@ -45,6 +59,15 @@ const Produtos = () => {
         }
       });
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const productsAPI = await api.getAllProducts();
+            setProducts(productsAPI);
+        };
+    
+        fetchData();
+    }, []);
+
     return (
         <>
             <Appbar />
@@ -52,10 +75,10 @@ const Produtos = () => {
             <main>
                 <h1 className='title'>Produtos</h1>
                 <section id='features'>
-                    <button onClick={openModal}>Adicionar</button>
+                    <button onClick={openModalCreate}>Adicionar</button>
                     <input type="search" name="" id="" />
                 </section>
-                {isModalOpen && <Modal closeModal={closeModal} 
+                {isModalCreateOpen && <ModalCreate closeModal={closeModalCreate} 
                     title="Formulário Produtos"
                     labels={["Nome: ", "Descrição: ", "Quantidade: ", "Preço: "]}
                     inputs={["name", "description", "amount", "price"]}
@@ -64,36 +87,34 @@ const Produtos = () => {
                     page="produtos"
                 />}
                 <section id='table'>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Coluna tabela</th>
-                                <th>Coluna tabela</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Sapato numero 1</td>
-                                <td>Linha tabela</td>
-                                <td>Linha tabela</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Sapato numero 2</td>
-                                <td>Linha tabela</td>
-                                <td>Linha tabela</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sapato numero 3</td>
-                                <td>Linha tabela</td>
-                                <td>Linha tabela</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {products ? (
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Coluna tabela</th>
+                                    <th>Coluna tabela</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products.map((product) => (
+                                    <tr key={product.id} onClick={() => openModalInfos(product)}>
+                                        <td>{product.id}</td>
+                                        <td>{product.nome}</td>
+                                        <td>{product.quantidade}</td>
+                                        <td>{product.preco}</td>
+                                    </tr>
+                                ))}
+                                {isModalInfosOpen && <ModalInfos title="Produto " 
+                                product={productSelected}
+                                closeModal={closeModalInfos}
+                                />}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>Carregando Dados...</p>
+                    )}
                 </section>
             </main>
             <Footer />

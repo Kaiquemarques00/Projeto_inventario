@@ -22,13 +22,13 @@ const Sidebar = () => {
                 <button>
                     <a href="/produtos">
                         <img src={produtoIcon} alt="" />
-                        <p>Produto</p>
+                        <p>Produtos</p>
                     </a>
                 </button>
                 <button>
                     <a href="/categorias">
                         <img src={categoryIcon} alt="" />
-                        <p>Categoria</p>
+                        <p>Categorias</p>
                     </a>
                 </button>
                 <button>
