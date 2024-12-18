@@ -7,9 +7,10 @@ class ProductsController {
 
         try {
             let queryProduct = `
-                    SELECT produtos.id, nome, descricao, quantidade, preco, nome_categoria AS categoria
+                    SELECT produtos.id, nome, descricao, quantidade, preco, categorias.id AS categoria_id, nome_categoria AS categoria
                     FROM produtos
-                    INNER JOIN categorias ON produtos.categoria_id = categorias.id                               
+                    INNER JOIN categorias ON produtos.categoria_id = categorias.id
+                    ORDER BY produtos.id ASC                               
                 `;
 
             const valores = [];
