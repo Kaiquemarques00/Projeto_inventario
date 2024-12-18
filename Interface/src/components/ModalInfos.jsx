@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Dropdown from "./Dropdown";
+import ModalConfirm from "./ModalConfirm";
 
 import MetodsApi from "../services/API";
 
@@ -13,6 +14,7 @@ const ModalInfos = ({ title, product, closeModal }) => {
   const [amount, setAmount] = useState("");
   const [price, setPrice] = useState("");
   const [category_id, setCategory] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const api = new MetodsApi();
 
@@ -55,6 +57,22 @@ const ModalInfos = ({ title, product, closeModal }) => {
   const handleEditClick = () => {
     setIsReadOnly(!isReadOnly);
   };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+};
+
+const handleCloseModal = () => {
+    setIsModalOpen(false);
+};
+
+const handleConfirm = async (e) => {
+    e.preventDefault();
+
+    await api.deleteProduct(product.id);
+
+    setIsModalOpen(false);
+};
 
   return (
     <>
@@ -132,7 +150,7 @@ const ModalInfos = ({ title, product, closeModal }) => {
               <button className="add-button" onClick={handleSendEdit}>
                 Salvar
               </button>
-              <button className="delete-button">
+              <button className="delete-button" onClick={handleOpenModal}>
                 Deletar
               </button>
               <button className="close-button" onClick={closeModal}>
@@ -141,6 +159,7 @@ const ModalInfos = ({ title, product, closeModal }) => {
             </article>
           )}
         </article>
+        <ModalConfirm show={isModalOpen} title="Teste" onConfirm={handleConfirm} onCancel={handleCloseModal} />
       </section>
     </>
   );

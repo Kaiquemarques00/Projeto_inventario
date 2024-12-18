@@ -10,3 +10,13 @@
         }
     }
 }
+
+@media screen and (min-width: 767.98px) {
+    .dropdown-container {
+
+        & select{
+            height: 50px;
+            padding: 10px 15px;
+        }
+    }
+}

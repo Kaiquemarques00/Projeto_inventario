@@ -80,6 +80,16 @@ class MetodsApi {
 
         return response.data
     }
+
+    async deleteProduct(id) {
+      const response = await api.delete(
+        `/product/${id}`
+      );
+
+      setInterval(location.reload(), 2000);
+
+      return response.data
+    }
 }
 
 export default MetodsApi
