@@ -9,29 +9,32 @@ class ProductsController {
             let queryProduct = `
                     SELECT produtos.id, nome, descricao, quantidade, preco, categorias.id AS categoria_id, nome_categoria AS categoria
                     FROM produtos
-                    INNER JOIN categorias ON produtos.categoria_id = categorias.id
-                    ORDER BY produtos.id ASC                               
+                    INNER JOIN categorias ON produtos.categoria_id = categorias.id                               
                 `;
 
             const valores = [];
+
+            if (!categoria && !nome && !estoque_min && !estoque_max && !ordenar) {
+                queryProduct += `ORDER BY produtos.id ASC`
+            }
 
             // Se tiver algum parametro de consulta, armazenar o valor do parametro em um array e usa o indece do array para utilizar o dado.
             if (categoria) {
                 valores.push(categoria.charAt(0).toUpperCase() + categoria.slice(1));
                 console.log(valores);
-                queryProduct += ` AND categorias.nome_categoria = $${valores.length}`;
+                queryProduct += ` AND categorias.nome_categoria = $${valores.length} ORDER BY produtos.id ASC`;
               }
             
             if (nome) {
                 // O operador % é utilizado para buscas parciais.
                 valores.push(`%${nome}%`);
-                queryProduct += ` AND produtos.nome ILIKE $${valores.length}`; // Busca parcial (case-insensitive)
+                queryProduct += ` AND produtos.nome ILIKE $${valores.length} ORDER BY produtos.id ASC`; // Busca parcial (case-insensitive)
             }
 
             // Se tiver algum parametro de consulta, utiliza o valor diretamente na consulta.
-            if (estoque_min) queryProduct += ` AND produtos.quantidade >= ${estoque_min}`;
+            if (estoque_min) queryProduct += ` AND produtos.quantidade >= ${estoque_min} ORDER BY produtos.id ASC`;
           
-            if (estoque_max) queryProduct += ` AND produtos.quantidade <= ${estoque_max}`;
+            if (estoque_max) queryProduct += ` AND produtos.quantidade <= ${estoque_max} ORDER BY produtos.id ASC`;
           
             // Adiciona ordenação
             if (ordenar) {

@@ -8,6 +8,8 @@ import ModalInfos from '../../components/ModalInfos';
 
 import MetodsApi from '../../services/API'
 
+import searcIcon from '../../assets/search.svg'
+
 import "./Produtos.style.css"
 
 const Produtos = () => {
@@ -21,6 +23,7 @@ const Produtos = () => {
     const [category, setCategory] = useState("");
     const [productSelected, setProductSelected] = useState("");
     const [products, setProducts] = useState("");
+    const [search, setSearch] = useState("");
   
     const openModalInfos = (product) => {
         setProductSelected(product);
@@ -49,6 +52,17 @@ const Produtos = () => {
 
         api.createProduct([name, description, amount, price, category]);
     }
+
+    const fetchData = async (query='') => {
+        const productsAPI = await api.getAllProducts("categoria", query);
+        setProducts(productsAPI);
+
+        console.log(products);
+    };
+
+    const handleFilter = async () => {
+        fetchData(search)
+    }
     
     window.addEventListener('scroll', function() {
         const sidebar = document.querySelector(".sidebar");
@@ -60,11 +74,6 @@ const Produtos = () => {
       });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const productsAPI = await api.getAllProducts();
-            setProducts(productsAPI);
-        };
-    
         fetchData();
     }, []);
 
@@ -76,7 +85,10 @@ const Produtos = () => {
                 <h1 className='title'>Produtos</h1>
                 <section id='features'>
                     <button onClick={openModalCreate}>Adicionar</button>
-                    <input type="search" name="" id="" />
+                    <article className='search'>
+                        <input type="search" placeholder='Digite um categoria' onChange={(e) => setSearch(e.target.value.toLowerCase())}/>
+                        <button className='search-button' onClick={handleFilter}><img src={searcIcon} alt="icone de busca" /></button>
+                    </article>
                 </section>
                 {isModalCreateOpen && <ModalCreate closeModal={closeModalCreate} 
                     title="Formulário Produtos"
@@ -93,8 +105,8 @@ const Produtos = () => {
                                 <tr>
                                     <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Coluna tabela</th>
-                                    <th>Coluna tabela</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço</th>
                                 </tr>
                             </thead>
                             <tbody>

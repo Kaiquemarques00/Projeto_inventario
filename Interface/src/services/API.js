@@ -65,9 +65,17 @@ class MetodsApi {
         }
   }
 
-    async getAllProducts() {
+    /*async getAllProducts() {
       const response = await api.get(
         "/products",
+    );
+
+    return response.data
+    }*/
+
+    async getAllProducts(filter, value) {
+      const response = await api.get(
+        `/products?${filter}=${value}`,
     );
 
     return response.data

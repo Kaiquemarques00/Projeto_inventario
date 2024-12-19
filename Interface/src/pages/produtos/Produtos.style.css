@@ -18,6 +18,7 @@ main {
         min-width: 90%;
         justify-content: space-between;
         align-items: center;
+        padding: 0 10px;
 
         & button {
             border: none;
@@ -30,38 +31,47 @@ main {
             cursor: pointer;
         }
 
-        & input {
-            height: 40px;
-            padding: 0 15px;
-            width: 65%;
+        & article.search {
+            display: flex;
+            justify-content: end;
+            gap: 5px;
+            width: 100%;
+
+            & input {
+                height: 40px;
+                padding: 0 15px;
+                width: 70%;
+            }
+    
+            & input:focus {
+                border: none;
+            }
+
+            & .search-button {
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
 
-        & input:focus {
-            border: none;
-        }
+        
     }
 
     & section#table {
         display: flex;
-        width: 80%;
+        min-width: 80%;
 
         & table {
             width: 100%;
-            & thead {
+           & thead {
                 font-size: clamp(1.3rem, 2vw, 1.6rem);
-                & tr {
+                 & tr {
                     text-align: center;
 
                     & th {
                         padding: 10px;
-                    }
-
-                    & th:nth-child(3), th:nth-child(4) {
-                        display: none;
-                    }
-                    
-                    & th:nth-child(1) {
-                        width: 30%;
                     }
                 }
             }
@@ -69,15 +79,10 @@ main {
             & tbody {
                 font-size: clamp(1.05rem, 2vw, 1.4rem);
                 & tr {
-                    text-align: left;
+                    text-align: center;
 
                     & td {
                         padding: 10px 10px;
-                        text-align: center;
-                    }
-
-                    & td:nth-child(3), td:nth-child(4) {
-                        display: none;
                     }
                 }
 
@@ -105,12 +110,54 @@ main {
                 font-size: 1.3rem;
             }
     
-            & input {
-                height: 50px;
-                width: 40%;
+            & article.search {
+
+                & input {
+                    height: 50px;
+                    width: 60%;
+                }
+
+                & .search-button {
+                    height: 50px;
+
+                    & img {
+                        height: 30px;
+                        width: 30px;
+                    }
+                }
             }
         }
     }
+}
 
-    
+
+@media screen and (max-width: 767.98px) {
+    main {
+
+        & section#table {
+
+            & table {
+        
+                & thead {
+        
+                    & tr {
+
+                        & th:nth-child(3), th:nth-child(4) {
+                            display: none;
+                        }
+                    }
+                }
+        
+                & tbody {
+        
+                    & tr {
+                        
+                        & td:nth-child(3), td:nth-child(4) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
