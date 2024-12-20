@@ -39,6 +39,54 @@ class MetodsApi {
           }
     }
 
+    async createCategory(values) {
+      const name = values[0];
+
+      try {
+          const response = await api.post(
+            "/category",
+            {
+              name
+            }
+          );
+    
+          this.messageAPI = response.data;
+          alert(this.messageAPI);
+          setInterval(location.reload(), 2000);
+        } catch (error) {
+          // Lidar com erros de envio de dados
+          this.errorAPI = error.response.data;
+          alert(this.errorAPI);
+          console.log(error);
+        }
+  }
+
+  async createMovement(values) {
+    const product_id = parseInt(values[0]);
+    const type = values[1];
+    const amount = parseInt(values[2]);
+
+    try {
+        const response = await api.post(
+          "/movement",
+          {
+            product_id,
+            type,
+            amount
+          }
+        );
+  
+        this.messageAPI = response.data;
+        alert(this.messageAPI);
+        setInterval(location.reload(), 2000);
+      } catch (error) {
+        // Lidar com erros de envio de dados
+        this.errorAPI = error.response.data;
+        alert(this.errorAPI);
+        console.log(error);
+      }
+}
+
     async changeProduct(values, id) {
 
       if (values.name === "") delete values.name;
@@ -65,6 +113,28 @@ class MetodsApi {
         }
   }
 
+  async changeCategory(values, id) {
+
+    if (values.name === "") delete values.name;
+
+    console.log(values);
+    
+    try {
+        const response = await api.patch(
+          `/category/${parseInt(id)}`, values
+        );
+  
+        this.messageAPI = response.data;
+        alert(this.messageAPI);
+        setInterval(location.reload(), 2000);
+      } catch (error) {
+        // Lidar com erros de envio de dados
+        this.errorAPI = error.response.data;
+        alert(this.errorAPI);
+        console.log(error);
+      }
+}
+
     /*async getAllProducts() {
       const response = await api.get(
         "/products",
@@ -89,9 +159,27 @@ class MetodsApi {
         return response.data
     }
 
+    async getAllMovements() {
+      const response = await api.get(
+          "/movements",
+      );
+
+      return response.data
+  }
+
     async deleteProduct(id) {
       const response = await api.delete(
         `/product/${id}`
+      );
+
+      setInterval(location.reload(), 2000);
+
+      return response.data
+    }
+
+    async deleteCategory(id) {
+      const response = await api.delete(
+        `/category/${id}`
       );
 
       setInterval(location.reload(), 2000);

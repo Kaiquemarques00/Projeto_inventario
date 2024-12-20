@@ -8,30 +8,23 @@ import ModalInfos from '../../components/ModalInfos';
 
 import MetodsApi from '../../services/API'
 
-import searcIcon from '../../assets/search.svg'
+import "../produtos/Produtos.style.css"
 
-import "./Produtos.style.css"
-
-const Produtos = () => {
+const Categorias = () => {
     const sidebar = document.querySelector(".sidebar");
     const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
     const [isModalInfosOpen, setIsModalInfosOpen] = useState(false);
     const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [amount, setAmount] = useState("");
-    const [price, setPrice] = useState("");
-    const [category_id, setCategory] = useState("");
-    const [productSelected, setProductSelected] = useState("");
-    const [products, setProducts] = useState("");
-    const [search, setSearch] = useState("");
+    const [categorySelected, setCategorySelected] = useState("");
+    const [categories, setCategories] = useState("");
   
-    const openModalInfos = (product) => {
-        setProductSelected(product);
+    const openModalInfos = (category) => {
+        setCategorySelected(category);
         setIsModalInfosOpen(true);
     };
 
     const closeModalInfos = () => {
-        setProductSelected(null);
+        setCategorySelected(null);
         setIsModalInfosOpen(false);
     };
 
@@ -40,54 +33,32 @@ const Produtos = () => {
     const openModalCreate = () => setIsModalCreateOpen(true);
     const closeModalCreate = () => setIsModalCreateOpen(false);
     const changes = {
-        changeName: (e) => setName(e.target.value),
-        changeDescription: (e) => setDescription(e.target.value),
-        changeAmount: (e) => setAmount(e.target.value),
-        changePrice: (e) => setPrice(e.target.value),
-        changeCategory: (e) => setCategory(e.target.value)
+        changeName: (e) => setName(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        api.createProduct([name, description, amount, price, category_id]);
+        api.createCategory([name]);
     }
 
-    const fetchData = async (query='') => {
-        const productsAPI = await api.getAllProducts("categoria", query);
-        setProducts(productsAPI);
-
-        console.log(products);
+    const fetchData = async () => {
+        const categoriesAPI = await api.getAllCategories();
+        setCategories(categoriesAPI);
     };
-
-    const handleFilter = async () => {
-        fetchData(search)
-    }
 
     const handleSendEdit = async (e) => {
         e.preventDefault();
     
         const currentDatas = {
-          name: productSelected.nome,
-          description: productSelected.descricao,
-          amount: productSelected.quantidade,
-          price: productSelected.preco,
-          category_id: productSelected.categoria_id,
+          name: categorySelected.nome
         };
       
         const editedDatas = {
-          name: name,
-          description: description,
-          amount: amount,
-          price: price,
-          category_id: category_id,
+          name: name
         };
       
         let differences = {};
-
-        console.log(currentDatas);
-        console.log(editedDatas);
-        console.log(differences);
       
         for (let key in currentDatas) {
           if (currentDatas[key] !== editedDatas[key]) {
@@ -101,14 +72,14 @@ const Produtos = () => {
           }
         }
     
-        await api.changeProduct(differences, productSelected.id);
+        await api.changeCategory(differences, categorySelected.id);
       };
       
 
       const handleConfirm = async (e) => {
         e.preventDefault();
     
-        await api.deleteProduct(productSelected.id);
+        await api.deleteCategory(categorySelected.id);
     
         setIsModalOpen(false);
     };
@@ -131,47 +102,39 @@ const Produtos = () => {
             <Appbar />
             <Sidebar />
             <main>
-                <h1 className='title'>Produtos</h1>
+                <h1 className='title'>Categorias</h1>
                 <section id='features'>
                     <button onClick={openModalCreate}>Adicionar</button>
-                    <article className='search'>
-                        <input type="search" placeholder='Digite um categoria' onChange={(e) => setSearch(e.target.value.toLowerCase())}/>
-                        <button className='search-button' onClick={handleFilter}><img src={searcIcon} alt="icone de busca" /></button>
-                    </article>
                 </section>
                 {isModalCreateOpen && <ModalCreate closeModal={closeModalCreate} 
-                    title="Formulário Produtos"
-                    labels={["Nome: ", "Descrição: ", "Quantidade: ", "Preço: "]}
-                    inputs={["name", "description", "amount", "price"]}
+                    title="Formulário Categorias"
+                    labels={["Nome: "]}
+                    inputs={["name"]}
                     change={changes}
                     submit={handleSubmit}
-                    page="products"
+                    page="categories"
                 />}
                 <section id='table'>
-                    {products ? (
+                    {categories ? (
                         <table>
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Quantidade</th>
-                                    <th>Preço</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product) => (
-                                    <tr key={product.id} onClick={() => openModalInfos(product)}>
-                                        <td>{product.id}</td>
-                                        <td>{product.nome}</td>
-                                        <td>{product.quantidade}</td>
-                                        <td>{product.preco}</td>
+                                {categories.map((category) => (
+                                    <tr key={category.id} onClick={() => openModalInfos(category)}>
+                                        <td>{category.id}</td>
+                                        <td>{category.nome_categoria}</td>
                                     </tr>
                                 ))}
-                                {isModalInfosOpen && <ModalInfos title="Produto " 
+                                {isModalInfosOpen && <ModalInfos title="Categoria " 
                                 handleEdit={handleSendEdit}
-                                item={productSelected}
-                                inputs={[setName, setDescription, setAmount, setPrice, setCategory]}
-                                page="products"
+                                item={categorySelected}
+                                inputs={[setName]}
+                                page="categories"
                                 handleDelete={handleConfirm}
                                 closeModal={closeModalInfos}
                                 />}
@@ -187,4 +150,4 @@ const Produtos = () => {
     );
 }
  
-export default Produtos;
+export default Categorias;

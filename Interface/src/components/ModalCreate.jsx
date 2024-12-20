@@ -13,15 +13,26 @@ const ModalCreate = ({ closeModal, title, labels, inputs, change, submit, page  
       <section className="modal-overlay">
         <article className="modal-content">
           <h1>{title}</h1>
-          <form action="">
-            {labels.map((labelTitle, index) => (
-              <article key={index}>
-                <label htmlFor={inputs[index]}>{labelTitle}</label>
-                <input type="text" onChange={change[changesKeys[index]]}/>
-              </article>
-            ))}
-            <Dropdown change={change.changeCategory} page={page}/>
-          </form>
+          {page === "movements" ? (
+            <form action="">
+              <Dropdown change={change} page={page}/>
+              <article key={labels.length + 1}>
+                  <label htmlFor={inputs[0]}>{labels[0]}</label>
+                  <input type="number" onChange={change.changeAmount}/>
+                </article>
+            </form>
+          ) : (
+            <form action="">
+              {labels.map((labelTitle, index) => (
+                <article key={index}>
+                  <label htmlFor={inputs[index]}>{labelTitle}</label>
+                  <input type="text" onChange={change[changesKeys[index]]}/>
+                </article>
+              ))}
+              <Dropdown change={change} page={page}/>
+            </form>
+          )}
+          
           <article className="buttons-container">
             <button className="add-button" onClick={submit}>
               Adicionar

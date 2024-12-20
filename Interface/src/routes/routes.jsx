@@ -6,14 +6,18 @@ import {
   } from "react-router-dom";
 
 import Home from "../pages/home/Home.jsx";
-import Produtos from "../pages/produtos/Produtos.jsx";
+import Products from "../pages/produtos/Produtos.jsx";
+import Categories from "../pages/categorias/Categorias.jsx"
+import Movements from "../pages/movements/Movements.jsx"
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/produtos" element={<Produtos />} />
+        <Route path="/produtos" element={<Products />} />
+        <Route path="/categorias" element={<Categories />} />
+        <Route path="/movimentacoes" element={<Movements />} />
       </Routes>
     </Router>
   );
