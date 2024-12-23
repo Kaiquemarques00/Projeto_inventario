@@ -17,11 +17,11 @@ alterando diretamente a tabela  de produtos, as movimentações só podem ser co
 
 ## Tecnologias
 
-Como dito anteriormente mente o projeto é feito em JavaScript mas conta com uma gama de tecnologias auxiliares.
-Na parte do back-end foi utilizada tecnologias como o NodeJS, ExpressJS, PG.
-Por parte do front-end temos utilizado tecnologias como React, Bootstrap, Jquery, Axios, React Router.
-Na seção de banco de dados temos o PostgreSQL.
-Para o controle de versão do projeto utilizado o Git e GitHub.
+Como dito anteriormente mente o projeto é feito em JavaScript mas conta com uma gama de tecnologias auxiliares:
+Na parte do back-end foi utilizada tecnologias como o NodeJS, ExpressJS, PG;
+Por parte do front-end temos utilizado tecnologias como React, Bootstrap, Jquery, Axios, React Router;
+Na seção de banco de dados temos o PostgreSQL;
+Para o controle de versão do projeto utilizado o Git e GitHub;
 Para alguns testes da API desenvolvida utilizado o Postman.
 
 ## Observações
