@@ -113,14 +113,13 @@ const Produtos = () => {
         setIsModalOpen(false);
     };
     
-    window.addEventListener('scroll', function() {
-        const sidebar = document.querySelector(".sidebar");
-        if (window.scrollY > 50) {
-            sidebar.classList.add("scroll");
-        } else if (window.scrollY <= 50){
-            sidebar.classList.remove("scroll");
+    $(window).on("scroll", function () {
+        if ($(this).scrollTop() > 50) {
+          $(".sidebar").addClass("scroll");
+        } else {
+          $(".sidebar").removeClass("scroll");
         }
-      });
+    });
 
     useEffect(() => {
         fetchData();
